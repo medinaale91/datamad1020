@@ -40,7 +40,7 @@ print(a.size == b.size)
 No, operands could not be broadcast together with shapes (2,3,5) (5,2,3). They have different shapes'''
 #9. Transpose b so that it has the same structure of a (i.e. become a 2x3x5 array). Assign the transposed array to varialbe "c".
 
-c = b.reshape(2,3,5)
+c = b.reshape(2,3,5) # or c = np.transpose(b,(1,2,0))
 print(c)
 print(c.shape)# ->(2, 3, 5)
 #10. Try to add a and c. Now it should work. Assign the sum to varialbe "d". But why does it work now?
@@ -93,6 +93,23 @@ Note: you don't have to use Numpy in this question.
 #f[d == d_max] = 100
 #print(f)
 
+f = ((d < d_mean) & (d> d_min))*25 + ((d > d_mean) & (d<d_max))*75 + (d == d_min)*0 + (d == d_max)*100 + (d ==d_mean)*50
+
+#otra solucion
+#for i in range(len(d)):
+#        for j in range(len(d[i])):
+#                for h in range(len(d[i,j])):
+#                        if d[i,j,h] > d_min and d[i,j,h] < d_mean:
+#                                f[i,j,h] = 25
+#                        if d[i,j,h] > d_mean and d[i,j,h] < d_max:
+#                                f[i,j,h] = 75
+#                        if d[i,j,h] == d_mean:
+#                                f[i,j,h] = 50
+#                        if d[i,j,h] == d_min:
+#                               f[i,j,h] = 0
+#                      if d[i,j,h] == d_max:
+#                               f[i,j,h] = 100 
+#print(f)
 
 
 """
@@ -128,3 +145,25 @@ array([[[ 'D',  'D',  'D',  'B',  'D'],
         [ 'B',  'D',   'A',  'D', 'D']]])
 Again, you don't need Numpy in this question.
 """
+fstring = str(f).replace("100","E").replace("50","C").replace("0","A").replace("25","B").replace("75","D")
+
+print(fstring)
+
+# another solution:
+#g= np.empty((2,3,5), dtype= str)
+#
+#for i in range(len(d)):
+#        for j in range(len(d[i])):
+#                for h in range(len(d[i,j])):
+#                        if d[i,j,h] > d_min and d[i,j,h] < d_mean:
+#                                g[i,j,h] = "B"
+#                        if d[i,j,h] > d_mean and d[i,j,h] < d_max:
+#                                g[i,j,h] = "D"
+#                        if d[i,j,h] == d_mean:
+#                                g[i,j,h] = "C"
+#                                g[i,j,h] = "A"
+#                        if d[i,j,h] == d_min:
+#                        if d[i,j,h] == d_max:
+#                                g[i,j,h] = "E" 
+#
+#print(g)
