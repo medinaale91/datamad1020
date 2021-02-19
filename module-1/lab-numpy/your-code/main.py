@@ -40,11 +40,11 @@ print(a.size == b.size)
 #8. Are you able to add a and b? Why or why not?
 
 '''a + b
-No, operands could not be broadcast together with shapes (2,3,5) (5,2,3). They have different shapes'''
+No, operands could not be broadcast together with different shapes (2,3,5) (5,2,3). They should have the same shape'''
 
 #9. Transpose b so that it has the same structure of a (i.e. become a 2x3x5 array). Assign the transposed array to variable "c".
 
-c = b.reshape(2,3,5) # or c = np.transpose(b, (1,2,0))
+c = b.reshape([2,3,5]) # or c = np.transpose(b, (1,2,0))
 print(c)
 print(c.shape)# ->(2, 3, 5)
 
@@ -60,25 +60,29 @@ print(a)
 print(a.shape)
 print(d)
 
-
 #12. Multiply a and c. Assign the result to e.
 
-
-
+e= a*c
+print(e)
 #13. Does e equal to a? Why or why not?
 
-
-
+print("Hello World")
+print(e==a)
+"Yes, it is equal to a as they both have the same shape. Also, C is an array of 1, so multiplying each otem of the A array by 1 gives the same number."
 
 #14. Identify the max, min, and mean values in d. Assign those values to variables "d_max", "d_min", and "d_mean"
 
-
-
+d_max = np.max(d)
+d_min = np.min(d)
+d_mean = np.mean(d) 
+print("d_max: ", d_max)
+print("d_min: ", d_min)
+print("d_mean: ", d_mean)
 
 #15. Now we want to label the values in d. First create an empty array "f" with the same shape (i.e. 2x3x5) as d using `np.empty`.
 
-
-
+f= np.empty((2,3,5))
+print(f)
 
 """
 #16. Populate the values in f. For each value in d, if it's larger than d_min but smaller than d_mean, assign 25 to the corresponding value in f.
@@ -89,9 +93,30 @@ Assign 100 to the corresponding value(s) in f for d_max in d.
 In the end, f should have only the following values: 0, 25, 50, 75, and 100.
 Note: you don't have to use Numpy in this question.
 """
+#f[np.logical_and(d > d_min, d < d_mean)] = 25
+#f[np.logical_and(d>d_mean, d< d_max)] = 75
+#f[d == d_mean] = 50
+#f[d == d_min] = 0
+#f[d == d_max] = 100
+#print(f)
 
+f = ((d < d_mean) & (d> d_min))*25 + ((d > d_mean) & (d<d_max))*75 + (d == d_min)*0 + (d == d_max)*100 + (d ==d_mean)*50
 
-
+#otra solucion
+#for i in range(len(d)):
+#        for j in range(len(d[i])):
+#                for h in range(len(d[i,j])):
+#                        if d[i,j,h] > d_min and d[i,j,h] < d_mean:
+#                                f[i,j,h] = 25
+#                        if d[i,j,h] > d_mean and d[i,j,h] < d_max:
+#                                f[i,j,h] = 75
+#                        if d[i,j,h] == d_mean:
+#                                f[i,j,h] = 50
+#                        if d[i,j,h] == d_min:
+#                               f[i,j,h] = 0
+#                      if d[i,j,h] == d_max:
+#                               f[i,j,h] = 100 
+#print(f)
 
 """
 #17. Print d and f. Do you have your expected f?
@@ -127,3 +152,26 @@ array([[[ 'D',  'D',  'D',  'B',  'D'],
         [ 'B',  'D',   'A',  'D', 'D']]])
 Again, you don't need Numpy in this question.
 """
+
+fstring = str(f).replace("100","E").replace("50","C").replace("0","A").replace("25","B").replace("75","D")
+
+print(fstring)
+
+# another solution:
+#g= np.empty((2,3,5), dtype= str)
+#
+#for i in range(len(d)):
+#        for j in range(len(d[i])):
+#                for h in range(len(d[i,j])):
+#                        if d[i,j,h] > d_min and d[i,j,h] < d_mean:
+#                                g[i,j,h] = "B"
+#                        if d[i,j,h] > d_mean and d[i,j,h] < d_max:
+#                                g[i,j,h] = "D"
+#                        if d[i,j,h] == d_mean:
+#                                g[i,j,h] = "C"
+#                                g[i,j,h] = "A"
+#                        if d[i,j,h] == d_min:
+#                        if d[i,j,h] == d_max:
+#                                g[i,j,h] = "E" 
+#
+#print(g)
